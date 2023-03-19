@@ -9,6 +9,6 @@ public class ProgressBar : MonoBehaviour
 
     public void SetValue(float value)
     {
-        this.imgFiller.fillAmount = value;
+        this.imgFiller.fillAmount += value;
     }
 }
