@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8390370502814767023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7465936754356440956}
+  - component: {fileID: 1071497802917206536}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7465936754356440956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8390370502814767023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1071497802917206536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8390370502814767023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a097625f32a3647af3bdce6bc4f39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 6891669195537365224, guid: 142f1f6c4b6fa73429f040c7d2d031b5, type: 3}
+  enemies:
+  - {fileID: 6601030518645654994, guid: 8696dbd20f40da14692cac994bc66648, type: 3}
+  - {fileID: 1877259417683029440, guid: fbaee075c81bb9947b7b175f1ee3d481, type: 3}
+  - {fileID: 1158428425779429091, guid: ce1479f6a949655438e2b2c46c2a23c5, type: 3}
+  - {fileID: 3055722396834151291, guid: a0644ce66974e3147a0a844fb20b301c, type: 3}
+  - {fileID: 3212759196708991121, guid: e364fa78b22fcc546821f02eaf30caa8, type: 3}
+  - {fileID: 6350175472933195655, guid: eff6178b7eac1a146801f218fe74302f, type: 3}
+  maxEnemiesOnscreen: 1
+  totalEnemies: 1
+  enemiesPerSpawn: 1
