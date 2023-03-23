@@ -1139,6 +1139,7 @@ GameObject:
   - component: {fileID: 265039536}
   - component: {fileID: 265039535}
   - component: {fileID: 265039534}
+  - component: {fileID: 265039537}
   m_Layer: 5
   m_Name: Create
   m_TagString: Untagged
@@ -1209,7 +1210,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 265039535}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 265039537}
+        m_TargetAssemblyTypeName: RegistrationScript, Assembly-CSharp
+        m_MethodName: RegistrateUser
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &265039535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,6 +1261,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265039532}
   m_CullTransparentMesh: 1
+--- !u!114 &265039537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265039532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84696a7057a2bf542bf268c105321f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  registrationAnimator: {fileID: 1077414804}
+  firstnameText: {fileID: 769442599}
+  lastnameText: {fileID: 1314377774}
+  email: {fileID: 419289260}
+  password: {fileID: 1647463148}
 --- !u!1 &297789167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,6 +2737,7 @@ GameObject:
   - component: {fileID: 691545789}
   - component: {fileID: 691545788}
   - component: {fileID: 691545787}
+  - component: {fileID: 691545790}
   m_Layer: 5
   m_Name: AuthButton
   m_TagString: Untagged
@@ -2777,7 +2808,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 691545788}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 691545790}
+        m_TargetAssemblyTypeName: AuthorizationScript, Assembly-CSharp
+        m_MethodName: Authorize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &691545788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2816,6 +2859,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691545785}
   m_CullTransparentMesh: 1
+--- !u!114 &691545790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691545785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014ef7e362336ca4f8cff0ec3ff38693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  email: {fileID: 1662388109}
+  password: {fileID: 1882448718}
 --- !u!1 &738639798
 GameObject:
   m_ObjectHideFlags: 0
