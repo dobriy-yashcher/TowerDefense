@@ -10,16 +10,4 @@ public class Loader : MonoBehaviour
     {
         if (Manager.Instance == null) Instantiate(manager);
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -26,11 +26,11 @@ public class Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Spawn();
+        StartCoroutine(Spawn());
     }
 
 
-    void Spawn()
+    public IEnumerator Spawn()
     {
         if (totalEnemies > 0 && enemiesOnScreen < totalEnemies)
         {
@@ -38,11 +38,15 @@ public class Manager : MonoBehaviour
             {
                 if (enemiesOnScreen < maxEnemiesOnscreen)
                 {
-                    var newEnemy = Instantiate(enemies[0]) as GameObject;
+                    var newEnemy = Instantiate(enemies[0]);
                     newEnemy.transform.position = spawnPoint.transform.position;
                     ++enemiesOnScreen;
+
+                    yield return new WaitForSeconds(2);
                 }
+                else break;
             }
+            yield return StartCoroutine(Spawn());
         }
     }
 

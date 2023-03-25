@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int target = 0;
-    [SerializeField] Transform exit;
-    [SerializeField] Transform[] wayPoints;
+    [SerializeField] int target;
+    [HideInInspector] [SerializeField] Transform exit;
+    [HideInInspector] [SerializeField] List<Transform> wayPoints;
     [SerializeField] float navigation;
 
     Transform enemy;
@@ -16,11 +17,25 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemy = GetComponent<Transform>();
+        //enemy = GetComponent<Transform>();
+        exit = GameObject.FindGameObjectWithTag("Finish").transform;
+
+        var routePointsObject = GameObject.FindGameObjectWithTag("PointRoute");
+        /*var wayPointsRoutesCount = routePointsObject.transform.childCount;
+        var route = routePointsObject.transform.GetChild(Random.Range(0, wayPointsRoutesCount));*/
+                                                  
+        wayPoints = routePointsObject.transform.GetComponentsInChildren<Transform>().ToList();
+
+        target = 0;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        MoveToTarget();
+    }
+
+    void MoveToTarget()
     {
         if (wayPoints != null)
         {
@@ -28,11 +43,11 @@ public class Enemy : MonoBehaviour
 
             if (navigationTime > navigation)
             {
-                if (target < wayPoints.Length)
-                    enemy.position = Vector2.MoveTowards(enemy.position, wayPoints[target].position, navigationTime);
+                if (target < wayPoints.Count)
+                    transform.position = Vector2.MoveTowards(transform.position, wayPoints[target].position, navigationTime);
 
                 else
-                    enemy.position = Vector2.MoveTowards(enemy.position, exit.position, navigationTime);
+                    transform.position = Vector2.MoveTowards(transform.position, exit.position, navigationTime);
 
                 navigationTime = 0;
             }
