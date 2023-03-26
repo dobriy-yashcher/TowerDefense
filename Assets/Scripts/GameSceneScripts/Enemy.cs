@@ -8,23 +8,16 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] int target;
     [HideInInspector] [SerializeField] Transform exit;
-    [HideInInspector] [SerializeField] List<Transform> wayPoints;
+    [HideInInspector] [SerializeField] GameObject[] wayPoints;
     [SerializeField] float navigation;
 
     Transform enemy;
     float navigationTime = 0;
-
-    // Start is called before the first frame update
+                                                        
     void Start()
-    {
-        //enemy = GetComponent<Transform>();
-        exit = GameObject.FindGameObjectWithTag("Finish").transform;
-
-        var routePointsObject = GameObject.FindGameObjectWithTag("PointRoute");
-        /*var wayPointsRoutesCount = routePointsObject.transform.childCount;
-        var route = routePointsObject.transform.GetChild(Random.Range(0, wayPointsRoutesCount));*/
-                                                  
-        wayPoints = routePointsObject.transform.GetComponentsInChildren<Transform>().ToList();
+    {                                              
+        exit = GameObject.FindGameObjectWithTag("Finish").transform;                           
+        wayPoints = GameObject.FindGameObjectsWithTag("PointRoute");
 
         target = 0;
     }
@@ -43,14 +36,18 @@ public class Enemy : MonoBehaviour
 
             if (navigationTime > navigation)
             {
-                if (target < wayPoints.Count)
-                    transform.position = Vector2.MoveTowards(transform.position, wayPoints[target].position, navigationTime);
+                var targetPosition = wayPoints[target].transform.position;
+                targetPosition.z = 90;
+
+                if (target <= wayPoints.Length)
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, navigationTime);        
 
                 else
-                    transform.position = Vector2.MoveTowards(transform.position, exit.position, navigationTime);
+                    transform.position = Vector3.MoveTowards(transform.position, exit.position, navigationTime);
 
-                navigationTime = 0;
             }
+
+            navigationTime = 0;
         }
     }
 

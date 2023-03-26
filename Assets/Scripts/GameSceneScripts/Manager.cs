@@ -23,12 +23,10 @@ public class Manager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Spawn());
     }
-
 
     public IEnumerator Spawn()
     {
@@ -38,8 +36,15 @@ public class Manager : MonoBehaviour
             {
                 if (enemiesOnScreen < maxEnemiesOnscreen)
                 {
-                    var newEnemy = Instantiate(enemies[0]);
-                    newEnemy.transform.position = spawnPoint.transform.position;
+                    var enemyPrefab = enemies[Random.Range(0, enemies.Length)];
+
+                    var instantiatePosition = spawnPoint.transform.position;
+                    instantiatePosition.z = 90;
+
+                    var newEnemy = Instantiate(enemyPrefab);
+                    newEnemy.transform.position = instantiatePosition;
+                    DontDestroyOnLoad(newEnemy);
+
                     ++enemiesOnScreen;
 
                     yield return new WaitForSeconds(2);
