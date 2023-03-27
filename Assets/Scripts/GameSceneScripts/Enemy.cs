@@ -6,20 +6,22 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int target;
-    [HideInInspector] [SerializeField] Transform exit;
-    [HideInInspector] [SerializeField] GameObject[] wayPoints;
-    [SerializeField] float navigation;
-
-    Transform enemy;
+    [HideInInspector][SerializeField] GameObject exit;
+    [HideInInspector][SerializeField] List<GameObject> wayPoints;
+                           
+    int target;
     float navigationTime = 0;
-                                                        
-    void Start()
-    {                                              
-        exit = GameObject.FindGameObjectWithTag("Finish").transform;                           
-        wayPoints = GameObject.FindGameObjectsWithTag("PointRoute");
 
-        target = 0;
+    void Start()
+    {
+        exit = GameObject.FindGameObjectWithTag("Finish");
+
+        var array = GameObject.FindGameObjectsWithTag("PointRoute");
+        wayPoints = new List<GameObject>(array);
+        wayPoints.Add(exit);
+
+        //var count = GameObject.FindGameObjectsWithTag("PointRoute").Length;
+        //wayPoints = GameObject.FindGameObjectsWithTag("PointRoute").Where(x => x != null).ToArray();
     }
 
     // Update is called once per frame
@@ -31,21 +33,12 @@ public class Enemy : MonoBehaviour
     void MoveToTarget()
     {
         if (wayPoints != null)
-        {
+        {                                        
             navigationTime += Time.deltaTime;
-
-            if (navigationTime > navigation)
-            {
-                var targetPosition = wayPoints[target].transform.position;
-                targetPosition.z = 90;
-
-                if (target <= wayPoints.Length)
-                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, navigationTime);        
-
-                else
-                    transform.position = Vector3.MoveTowards(transform.position, exit.position, navigationTime);
-
-            }
+              
+            var targetPosition = wayPoints[target].transform.position;
+            targetPosition.z = 90;       
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, navigationTime);
 
             navigationTime = 0;
         }
@@ -53,7 +46,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "PointRoute") ++target;
+        if(collision.tag == "PointRoute") ++target;
 
         else if (collision.tag == "Finish")
         {
