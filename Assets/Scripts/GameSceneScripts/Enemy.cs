@@ -5,27 +5,29 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
-    [HideInInspector][SerializeField] Transform exit;
-    [HideInInspector][SerializeField] List<Transform> wayPoints;
+{                              
+    List<Transform> wayPoints;
                            
     int target = 0;
     float navigationTime = 0;
 
     void Start()
-    {
-        ++target;
-        exit = GameObject.FindGameObjectWithTag("Finish").transform;
+    {                   
+        var routes = GameObject.FindGameObjectWithTag("Level");
+        var routesMain = GameObject.FindGameObjectWithTag("RouteMain")
+            .GetComponentsInChildren<Transform>()
+            .Where((item, index) => index != 0)
+            .ToArray();     
+        wayPoints = new List<Transform>(routesMain);
 
-        var array = GameObject.FindGameObjectWithTag("Route").GetComponentsInChildren<Transform>();
-        wayPoints = new List<Transform>(array);
-        wayPoints.Add(exit);
-
-        //var count = GameObject.FindGameObjectsWithTag("PointRoute").Length;
-        //wayPoints = GameObject.FindGameObjectsWithTag("PointRoute").Where(x => x != null).ToArray();
+        var restRoute = routes.transform
+            .GetChild(Random.Range(3, routes.transform.childCount))
+            .GetComponentsInChildren<Transform>()
+            .Where((item, index) => index != 0)
+            .ToArray();
+        wayPoints.AddRange(restRoute);
     }
-
-    // Update is called once per frame
+                                          
     void Update()
     {
         MoveToTarget();
@@ -34,12 +36,21 @@ public class Enemy : MonoBehaviour
     void MoveToTarget()
     {
         if (wayPoints != null)
-        {                                        
+        {
             navigationTime += Time.deltaTime;
-              
-            var targetPosition = wayPoints[target].position;
-            targetPosition.z = 90;       
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, navigationTime);
+
+            if (wayPoints.Count > target)
+            {                 
+                var targetPosition = wayPoints[target].position;
+                targetPosition.z = 90;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, navigationTime);           
+            }
+            else
+            {
+                var targetPosition = wayPoints[wayPoints.Count - 1].position;
+                targetPosition.z = 90;
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, navigationTime);
+            }
 
             navigationTime = 0;
         }
@@ -47,12 +58,12 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "PointRoute") ++target;
-
-        else if (collision.tag == "Finish")
+        if (collision.tag == "Finish")
         {
             Manager.Instance.RemoveEnemyFromScreen();
             Destroy(gameObject);    
         }
+
+        else if(collision.tag == "PointRoute") ++target;
     }
 }
