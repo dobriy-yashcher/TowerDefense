@@ -6,18 +6,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [HideInInspector][SerializeField] GameObject exit;
-    [HideInInspector][SerializeField] List<GameObject> wayPoints;
+    [HideInInspector][SerializeField] Transform exit;
+    [HideInInspector][SerializeField] List<Transform> wayPoints;
                            
-    int target;
+    int target = 0;
     float navigationTime = 0;
 
     void Start()
     {
-        exit = GameObject.FindGameObjectWithTag("Finish");
+        ++target;
+        exit = GameObject.FindGameObjectWithTag("Finish").transform;
 
-        var array = GameObject.FindGameObjectsWithTag("PointRoute");
-        wayPoints = new List<GameObject>(array);
+        var array = GameObject.FindGameObjectWithTag("Route").GetComponentsInChildren<Transform>();
+        wayPoints = new List<Transform>(array);
         wayPoints.Add(exit);
 
         //var count = GameObject.FindGameObjectsWithTag("PointRoute").Length;
@@ -36,7 +37,7 @@ public class Enemy : MonoBehaviour
         {                                        
             navigationTime += Time.deltaTime;
               
-            var targetPosition = wayPoints[target].transform.position;
+            var targetPosition = wayPoints[target].position;
             targetPosition.z = 90;       
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, navigationTime);
 
@@ -51,7 +52,7 @@ public class Enemy : MonoBehaviour
         else if (collision.tag == "Finish")
         {
             Manager.Instance.RemoveEnemyFromScreen();
-            Destroy(gameObject);
+            Destroy(gameObject);    
         }
     }
 }

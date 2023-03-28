@@ -13,7 +13,8 @@ public class Manager : MonoBehaviour
     [SerializeField] int totalEnemies;
     [SerializeField] int enemiesPerSpawn;
 
-    int enemiesOnScreen = 0;
+    int enemiesOnScreen;
+    int totalEnemiesOnScreen;
 
     void Awake()
     {
@@ -25,34 +26,33 @@ public class Manager : MonoBehaviour
 
     void Start()
     {
+        enemiesOnScreen = 0;
+
         StartCoroutine(Spawn());
     }
 
     public IEnumerator Spawn()
     {
-        if (totalEnemies > 0 && enemiesOnScreen < totalEnemies)
-        {
-            for (int i = 0; i < totalEnemies; i++)
-            {
-                if (enemiesOnScreen < maxEnemiesOnscreen)
-                {
-                    var enemyPrefab = enemies[Random.Range(0, enemies.Length)];
+        if (totalEnemies > 0 && totalEnemies > totalEnemiesOnScreen)
+        {    
+            if (enemiesOnScreen < maxEnemiesOnscreen)
+            {              
+                var enemyPrefab = enemies[Random.Range(0, enemies.Length)];
 
-                    var instantiatePosition = spawnPoint.transform.position;
-                    instantiatePosition.z = 90;
+                var instantiatePosition = spawnPoint.transform.position;
+                instantiatePosition.z = 90;
 
-                    var newEnemy = Instantiate(enemyPrefab);
-                    newEnemy.transform.position = instantiatePosition;
-                    DontDestroyOnLoad(newEnemy);
+                var newEnemy = Instantiate(enemyPrefab);
+                newEnemy.transform.position = instantiatePosition;
+                DontDestroyOnLoad(newEnemy);
 
-                    ++enemiesOnScreen;
-
-                    yield return new WaitForSeconds(2);
-                }
-                else break;
-            }
-            yield return StartCoroutine(Spawn());
+                ++enemiesOnScreen;   
+                ++totalEnemiesOnScreen;   
+            }           
         }
+
+        yield return new WaitForSeconds(2);
+        yield return StartCoroutine(Spawn());
     }
 
     public void RemoveEnemyFromScreen()
