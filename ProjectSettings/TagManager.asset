@@ -7,6 +7,8 @@ TagManager:
   - PointRoute
   - Enemy
   - Route
+  - RouteMain
+  - Level
   layers:
   - Default
   - TransparentFX

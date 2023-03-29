@@ -16,16 +16,19 @@ public class Manager : MonoBehaviour
     int enemiesOnScreen;
     int totalEnemiesOnScreen;
 
+    int countHealth;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
         else if (Instance != this) Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);                       
     }
 
     void Start()
     {
+        countHealth = 4;
         enemiesOnScreen = 0;
 
         StartCoroutine(Spawn());
@@ -58,5 +61,12 @@ public class Manager : MonoBehaviour
     public void RemoveEnemyFromScreen()
     {
         if (enemiesOnScreen > 0) --enemiesOnScreen;
+    } 
+
+    public void EnemyTakeOffHealth()
+    {                                                    
+        --countHealth;
+
+        if (countHealth == 0) LevelControl.Instance.LevelFail();
     }
 }

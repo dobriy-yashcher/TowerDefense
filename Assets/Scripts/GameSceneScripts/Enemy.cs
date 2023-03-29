@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.tag == "Finish")
         {
+            Manager.Instance.EnemyTakeOffHealth();
             Manager.Instance.RemoveEnemyFromScreen();
             Destroy(gameObject);    
         }
