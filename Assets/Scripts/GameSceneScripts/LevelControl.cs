@@ -32,12 +32,5 @@ public class LevelControl : MonoBehaviour
         gameInterface.SetActive(false);
         level.SetActive(false);
         animator.SetTrigger("open_level_failed");     
-    }       
-    
-    public void LevelRestart()
-    {
-        animator.SetTrigger("hide_level_failed");     
-        gameInterface.SetActive(true);
-        level.SetActive(true);
-    }
+    }            
 }

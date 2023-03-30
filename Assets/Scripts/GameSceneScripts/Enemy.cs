@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {                   
-        var routes = GameObject.FindGameObjectWithTag("Level");
+        var routes = GameObject.FindGameObjectWithTag("Level1");
         var routesMain = GameObject.FindGameObjectWithTag("RouteMain")
             .GetComponentsInChildren<Transform>()
             .Where((item, index) => index != 0)
